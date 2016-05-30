@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Date:
+  = @coffee_note.date
+%p
+  %b Type:
+  = @coffee_note.coffee_type
+%p
+  %b Rating:
+  = @coffee_note.rating
+%p
+  %b Notes:
+  = @coffee_note.notes
+
+= link_to 'Edit', edit_coffee_note_path(@coffee_note)
+\|
+= link_to 'Back', coffee_notes_path

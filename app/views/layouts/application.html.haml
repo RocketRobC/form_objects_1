@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title FormObjects1
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/milligram/1.1.0/milligram.css", :rel => "stylesheet"}/
+    = csrf_meta_tags
+  %body
+    .container
+      = yield

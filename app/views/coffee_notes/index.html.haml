@@ -1,0 +1,27 @@
+%h1 Coffee Notes
+
+%table
+  %thead
+    %tr
+      %th Date
+      %th Type
+      %th Rating
+      %th Notes
+      %th
+      %th
+      %th
+
+  %tbody
+    - @coffee_notes.each do |coffee_note|
+      %tr
+        %td= coffee_note.date
+        %td= coffee_note.coffee_type
+        %td= coffee_note.rating
+        %td= coffee_note.notes
+        %td= link_to 'Show', coffee_note
+        %td= link_to 'Edit', edit_coffee_note_path(coffee_note)
+        %td= link_to 'Destroy', coffee_note, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Coffee note', new_coffee_note_form_path
