@@ -5,7 +5,22 @@ class CoffeeNoteForm
     defined? @id
   end
 
+  def set_attributes(attributes)
+    attributes.each do |name, value|
+      send("#{name}=", value)
+    end
+  end
+
   attr_accessor :date, :coffee_type, :notes, :rating, :id
+
+  def initialize(attributes={})
+    @errors = ActiveModel::Errors.new(self)
+    set_attributes(attributes)
+  end
+
+  def self.model_name
+    ActiveModel::Name.new(CoffeeNote)
+  end
 
   def save_form(params)
     return false unless valid?
@@ -13,7 +28,11 @@ class CoffeeNoteForm
   end
 
   def update_form(params)
-    CoffeeNote.update(coffee_note_params)
+    set_attributes(params)
+    CoffeeNote.transaction do
+      coffee_note = CoffeeNote.find(id)
+      coffee_note.update_attributes!(coffee_note_params)
+    end
   end
 
   def self.populate_edit_form(coffee_note)
@@ -40,7 +59,7 @@ class CoffeeNoteForm
       date: date,
       coffee_type: coffee_type,
       rating: rating,
-      notes: notes,
+      notes: notes
     }
   end
 

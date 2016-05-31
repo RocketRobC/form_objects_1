@@ -1,7 +1,7 @@
 = simple_form_for @coffee_note_form do |f|
   - if @coffee_note_form.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@coffee_note_form.errors.count, "error")} prohibited this coffee_note from being saved:"
+      %h2= "#{pluralize(@coffee_note_form.errors.count, "error")} prohibited this coffee_note_form from being saved:"
       %ul
         - @coffee_note_form.errors.full_messages.each do |msg|
           %li= msg
