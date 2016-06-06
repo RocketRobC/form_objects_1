@@ -49,6 +49,6 @@ class CoffeeNotesController < ApplicationController
     end
 
     def coffee_note_params
-      params.require(:coffee_note).permit(:date, :coffee_type, :rating, :notes, :coffee_note_form)
+      params.require(:coffee_note).permit(:date, :coffee_type_note, :rating, :notes, :coffee_note_form, :size, :coffee_consumption_id)
     end
 end
