@@ -24,12 +24,11 @@ class CoffeeNoteForm
 
   def save_form(params)
     return false unless valid?
-    CoffeeConsumption.create!(coffee_consumption_params)
-
-  end
-
-  def save_note(params)
-    CoffeeNote.create!(coffee_note_params)
+    CoffeeNote.transaction do
+      coffee_note = CoffeeNote.new(coffee_note_params)
+      coffee_note.build_coffee_consumption(coffee_consumption_params)
+      coffee_note.save!
+    end
   end
 
   def update_form(params)
@@ -37,15 +36,17 @@ class CoffeeNoteForm
     CoffeeNote.transaction do
       coffee_note = CoffeeNote.find(id)
       coffee_note.update_attributes!(coffee_note_params)
+      coffee_note.build_coffee_consumption(coffee_consumption_params)
     end
   end
 
-  def self.populate_edit_form(coffee_note)
+  def self.populate_edit_form(coffee_note, coffee_consumption)
     coffee_note_form = new(id: coffee_note.id,
                           date: coffee_note.date,
                           coffee_type_note: coffee_note.coffee_type,
                           rating: coffee_note.rating,
-                          notes: coffee_note.notes
+                          notes: coffee_note.notes,
+                          size: coffee_consumption.size
                           )
   end
 
@@ -65,7 +66,6 @@ class CoffeeNoteForm
       # coffee_type: coffee_type_note,
       rating: rating,
       notes: notes,
-      coffee_consumption_id: id
     }
   end
 

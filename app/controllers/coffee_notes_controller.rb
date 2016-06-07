@@ -1,5 +1,6 @@
 class CoffeeNotesController < ApplicationController
   before_action :set_coffee_note, only: [:show, :edit, :update, :destroy]
+  before_action :set_coffee_consumption, only: [:edit, :update, :show]
 
   def index
     @coffee_notes = CoffeeNote.order(date: :desc)
@@ -13,7 +14,7 @@ class CoffeeNotesController < ApplicationController
   end
 
   def edit
-    @coffee_note_form = CoffeeNoteForm.populate_edit_form(@coffee_note)
+    @coffee_note_form = CoffeeNoteForm.populate_edit_form(@coffee_note, @coffee_consumption)
   end
 
   def create
@@ -26,7 +27,7 @@ class CoffeeNotesController < ApplicationController
   end
 
   def update
-    @coffee_note_form = CoffeeNoteForm.populate_edit_form(@coffee_note)
+    @coffee_note_form = CoffeeNoteForm.populate_edit_form(@coffee_note, @coffee_consumption)
     if @coffee_note_form.update_form(coffee_note_params)
       redirect_to coffee_notes_path, notice: 'Coffee note was successfully updated.'
     else
@@ -36,6 +37,7 @@ class CoffeeNotesController < ApplicationController
 
   def destroy
     @coffee_note.destroy
+    @coffee_note.coffee_consumption.destroy if @coffee_note.coffee_note_consumption
     respond_to do |format|
       format.html { redirect_to coffee_notes_url, notice: 'Coffee note was successfully destroyed.' }
       format.json { head :no_content }
@@ -46,6 +48,10 @@ class CoffeeNotesController < ApplicationController
 
     def set_coffee_note
       @coffee_note = CoffeeNote.find(params[:id])
+    end
+
+    def set_coffee_consumption
+      @coffee_consumption = @coffee_note.coffee_consumption
     end
 
     def coffee_note_params
