@@ -1,0 +1,16 @@
+= simple_form_for @coffee_type_form do |f|
+  - if @coffee_type_form.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@coffee_type_form.errors.count, "error")} prohibited this Coffee Recipe from being saved:"
+      %ul
+        - @coffee_type_form.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.input :name
+
+  .field
+    = f.input :recipe
+
+  .actions
+    = f.submit 'Save'

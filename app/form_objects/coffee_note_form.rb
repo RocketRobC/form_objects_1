@@ -1,22 +1,7 @@
-class CoffeeNoteForm
+class CoffeeNoteForm < BaseForm
   include ActiveModel::Model
 
-  def persisted?
-    defined? @id
-  end
-
-  def set_attributes(attributes)
-    attributes.each do |name, value|
-      send("#{name}=", value)
-    end
-  end
-
   attr_accessor :date, :coffee_type_note, :notes, :rating, :id, :size, :coffee_consumption_id
-
-  def initialize(attributes={})
-    @errors = ActiveModel::Errors.new(self)
-    set_attributes(attributes)
-  end
 
   def self.model_name
     ActiveModel::Name.new(CoffeeNote)
