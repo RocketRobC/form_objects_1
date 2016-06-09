@@ -37,7 +37,7 @@ class CoffeeNotesController < ApplicationController
 
   def destroy
     @coffee_note.destroy
-    @coffee_note.coffee_consumption.destroy if @coffee_note.coffee_note_consumption
+    @coffee_note.coffee_consumption.destroy if @coffee_note.coffee_consumption
     respond_to do |format|
       format.html { redirect_to coffee_notes_url, notice: 'Coffee note was successfully destroyed.' }
       format.json { head :no_content }
@@ -55,6 +55,6 @@ class CoffeeNotesController < ApplicationController
     end
 
     def coffee_note_params
-      params.require(:coffee_note).permit(:date, :coffee_type_note, :rating, :notes, :coffee_note_form, :size, :coffee_consumption_id)
+      params.require(:coffee_note).permit(:date, :coffee_type_id, :rating, :notes, :coffee_note_form, :size, :coffee_consumption_id, :caffine_in_mg)
     end
 end

@@ -7,4 +7,8 @@ module ApplicationHelper
   def coffee_size(object)
     object.coffee_consumption.size.titleize if object.coffee_consumption
   end
+
+  def coffee_type_selection
+    CoffeeType.all.map { |ct| [ct.name, ct.id] }
+  end
 end

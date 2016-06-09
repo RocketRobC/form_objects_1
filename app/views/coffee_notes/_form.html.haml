@@ -8,8 +8,8 @@
 
   .field
     = f.input :date, as: :date, as: :string
-  -# .field
-  -#   = f.input :coffee_type_note
+  .field
+    =f.input :coffee_type_id, collection: coffee_type_selection
   .field
     = f.input :size, collection: coffee_sizes
   .field

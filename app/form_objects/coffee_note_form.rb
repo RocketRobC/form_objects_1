@@ -1,7 +1,9 @@
 class CoffeeNoteForm < BaseForm
   include ActiveModel::Model
 
-  attr_accessor :date, :coffee_type_note, :notes, :rating, :id, :size, :coffee_consumption_id
+  attr_accessor :date, :coffee_type_id, :notes, :rating, :id, :size, :coffee_consumption_id, :caffine_in_mg
+
+  # validates :coffee_consumption_id, presence: true
 
   def self.model_name
     ActiveModel::Name.new(CoffeeNote)
@@ -21,17 +23,18 @@ class CoffeeNoteForm < BaseForm
     CoffeeNote.transaction do
       coffee_note = CoffeeNote.find(id)
       coffee_note.update_attributes!(coffee_note_params)
-      coffee_note.build_coffee_consumption(coffee_consumption_params)
+      consumption = coffee_note.coffee_consumption
+      consumption.update_attributes!(coffee_consumption_params)
     end
   end
 
   def self.populate_edit_form(coffee_note, coffee_consumption)
     coffee_note_form = new(id: coffee_note.id,
                           date: coffee_note.date,
-                          coffee_type_note: coffee_note.coffee_type,
+                          coffee_type_id: coffee_note.coffee_type_id,
                           rating: coffee_note.rating,
                           notes: coffee_note.notes,
-                          size: coffee_consumption.size
+                          size: coffee_note.coffee_consumption.size,
                           )
   end
 
@@ -48,16 +51,17 @@ class CoffeeNoteForm < BaseForm
   def coffee_note_params
     { id: id,
       date: date,
-      # coffee_type: coffee_type_note,
+      coffee_type_id: coffee_type_id,
       rating: rating,
       notes: notes,
     }
   end
 
   def coffee_consumption_params
-    { id: id,
-      date: date,
-      size: size
+    caffine_in_mg = CoffeeConsumptionCalculator.calculate_caffine(size)
+    { date: date,
+      size: size,
+      caffine_in_mg: caffine_in_mg
     }
   end
 

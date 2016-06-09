@@ -18,7 +18,7 @@
     - @coffee_notes.each do |coffee_note|
       %tr
         %td= coffee_note.date
-        %td= coffee_note.coffee_type
+        %td= coffee_note.coffee_type.name
         %td= coffee_size(coffee_note)
         %td= coffee_note.rating
         %td= coffee_note.notes
@@ -29,3 +29,5 @@
 %br
 
 = link_to 'New Coffee note', new_coffee_note_path
+|
+= link_to 'Coffee Types', coffee_types_path
