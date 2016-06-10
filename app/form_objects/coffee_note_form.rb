@@ -58,7 +58,7 @@ class CoffeeNoteForm < BaseForm
   end
 
   def coffee_consumption_params
-    caffine_in_mg = CoffeeConsumptionCalculator.calculate_caffine(size)
+    caffine_in_mg = CoffeeConsumptionCalculator.new.calculate_caffine(size)
     { date: date,
       size: size,
       caffine_in_mg: caffine_in_mg

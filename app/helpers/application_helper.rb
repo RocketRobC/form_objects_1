@@ -11,4 +11,8 @@ module ApplicationHelper
   def coffee_type_selection
     CoffeeType.all.map { |ct| [ct.name, ct.id] }
   end
+
+  def format_date(time)
+    time.strftime('%A %d %B %Y')
+  end
 end

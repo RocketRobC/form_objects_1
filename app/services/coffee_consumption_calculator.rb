@@ -1,4 +1,4 @@
-module CoffeeConsumptionCalculator
+class CoffeeConsumptionCalculator
 
   CAFFINE_BASE = 77
 
@@ -9,11 +9,11 @@ module CoffeeConsumptionCalculator
     'triple' => 3
   }
 
-  def self.valid?(size)
+  def valid?(size)
     COFFEE_SIZE.keys.include?(size)
   end
 
-  def self.calculate_caffine(size)
+  def calculate_caffine(size)
     return false unless valid?(size)
     COFFEE_SIZE[size] * CAFFINE_BASE
   end
