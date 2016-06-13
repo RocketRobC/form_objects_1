@@ -15,3 +15,5 @@
 = link_to 'Edit', edit_coffee_note_path(@coffee_note)
 \|
 = link_to 'Back', coffee_notes_path
+\|
+= link_to 'Destroy', @coffee_note, :method => :delete, :data => { :confirm => 'Are you sure?' }

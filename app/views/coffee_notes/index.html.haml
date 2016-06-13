@@ -1,6 +1,28 @@
 = flash[:notice]
 
 %h1 Coffee Notes
+%hr
+%h4
+  %strong Coffee Stats
+
+.row
+  .column
+    %h5
+      %strong Last 7 Days
+    %h5= number_of_coffees_last_seven_days
+  .column
+    %h5
+      %strong All Time
+    %h5= total_coffees_drunk
+  .column
+    %h5
+      %strong Caffine last 7 days
+    %h5= formatted_caffine_consumed_last_7_days
+  .column
+    %h5
+      %strong Total Caffine
+    %h5= formatted_total_caffine_consumed
+%hr
 
 %table
   %thead
@@ -12,19 +34,17 @@
       %th Notes
       %th
       %th
-      %th
 
   %tbody
     - @coffee_notes.each do |coffee_note|
       %tr
-        %td= coffee_note.date
+        %td= format_date(coffee_note.date)
         %td= coffee_note.coffee_type.name
         %td= coffee_size(coffee_note)
         %td= coffee_note.rating
         %td= coffee_note.notes
         %td= link_to 'Show', coffee_note
         %td= link_to 'Edit', edit_coffee_note_path(coffee_note)
-        %td= link_to 'Destroy', coffee_note, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
