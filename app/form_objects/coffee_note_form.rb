@@ -4,6 +4,7 @@ class CoffeeNoteForm < BaseForm
   attr_accessor :date, :coffee_type_id, :notes, :rating, :id, :size, :coffee_consumption_id, :caffine_in_mg
 
   # validates :coffee_consumption_id, presence: true
+  validates :date, presence: true
 
   def self.model_name
     ActiveModel::Name.new(CoffeeNote)

@@ -6,15 +6,44 @@
         - @coffee_note_form.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.input :date, as: :date, as: :string
-  .field
-    =f.input :coffee_type_id, collection: coffee_type_selection
-  .field
-    = f.input :size, collection: coffee_sizes
-  .field
-    = f.input :rating
-  .field
-    = f.input :notes
+  .row
+    .column.column-25
+      .field
+        = f.input :date, as: :date
+    .column.column-75
+      .field
+        =f.input :coffee_type_id, collection: coffee_type_selection
+      .row
+        .column
+          .field
+            = f.input :size, collection: coffee_sizes
+        .column
+          .field
+            = f.input :rating
+  .row
+    .column
+      .field
+        = f.input :notes, as: :text
   .actions
     = f.submit 'Save'
+
+:javascript
+  var $coffee_types = $("#coffee_note_coffee_type_id");
+  var $coffee_size = $("#coffee_note_size");
+
+  $(document).ready(function(){
+    $coffee_types.select2({
+      escapeMarkup: function (m) {return m;},
+      templateResult: format_coffee_type_dropdown
+    });
+    $coffee_size.select2();
+  });
+
+  function format_coffee_type_dropdown(object) {
+    var $option = $(object.element);
+    return '<div><strong>' + object.text + '</strong></div><div>' + $option.data('recipe') + '</div>';
+  }
+
+  //$(function(){
+    //$("#coffee_note_date").datepicker();
+  //});

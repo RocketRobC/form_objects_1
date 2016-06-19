@@ -9,7 +9,11 @@ module ApplicationHelper
   end
 
   def coffee_type_selection
-    CoffeeType.all.map { |ct| [ct.name, ct.id] }
+    CoffeeType.all.map { |ct| [ct.name,
+                              ct.id,
+                              { 'data-recipe' => ct.recipe }
+                              ]
+                        }
   end
 
   def format_date(time)
