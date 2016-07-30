@@ -10,7 +10,8 @@ class CoffeeConsumptionCalculator
   }
 
   def valid?(size)
-    COFFEE_SIZE.keys.include?(size)
+   # COFFEE_SIZE.keys.include?(size)
+   COFFEE_SIZE.has_key?(size)
   end
 
   def calculate_caffine(size)
